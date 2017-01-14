@@ -1,0 +1,15 @@
+{
+  "name": "file-directives",
+  "version": "1.4.4",
+  "description": "Utility to specify pre-package directives to allow automatic code stripping",
+  "dependencies": {
+    "istextorbinary": "^2.1.0",
+    "ncp": "^2.0.0"
+  },
+  "bin": {
+    "file-directives": "bin/process.js"
+  },
+  "devDependencies": {},
+  "author": "",
+  "license": "ISC"
+}
