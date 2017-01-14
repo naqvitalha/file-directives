@@ -1,3 +1,5 @@
+#file-directives#
+
 To use this utility use the following command:
 
 `npm install file-directives -g`
