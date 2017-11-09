@@ -1,25 +1,38 @@
 var DirectiveHelper = require("./DirectiveHelper");
-var fileTypeChecker = require('istextorbinary');
-var fs = require('fs')
+var fileTypeChecker = require("istextorbinary");
+var fs = require("fs");
+var pathUtil = require("path");
 class FileProcessor {
     processDirectivesAndGetText(filePath, envVars) {
-        var isText = fileTypeChecker.isTextSync(filePath);
+        var isText = this.isTextSync(filePath);
         if (isText) {
-            var finalFile = fs.readFileSync(filePath, 'utf8');
+            var finalFile = fs.readFileSync(filePath, "utf8");
             var processResponse = this.processInternalAndReturnText(finalFile, envVars);
             var response = {
-                isProcessed: processResponse.isProcessed, value: processResponse.response
+                isProcessed: processResponse.isProcessed,
+                value: processResponse.response
             };
             return response;
-
-        }
-        else {
+        } else {
             var finalFile = fs.readFileSync(filePath);
             var response = {
-                isProcessed: false, value: finalFile
+                isProcessed: false,
+                value: finalFile
             };
             return response;
         }
+    }
+    isTextSync(filename) {
+        let isText = false;
+        let localTxtExtensions = ["tsx", "ts"];
+        if (filename) {
+            const parts = pathUtil.basename(filename).split(".").reverse();
+            let ext = parts[0];
+            if (ext) {
+                isText = localTxtExtensions.indexOf(ext) !== -1;
+            }
+        }
+        return isText || fileTypeChecker.isTextSync(filename);
     }
     processInternalAndReturnText(data, envVars) {
         var dirHelper = new DirectiveHelper();
@@ -38,8 +51,7 @@ class FileProcessor {
                         this.uncommentAll(arr, startIndex, endIndex);
                         isProcessed = true;
                     }
-                }
-                else {
+                } else {
                     if (this.checkUncommentedScope(arr, startIndex, endIndex)) {
                         this.commentAll(arr, startIndex, endIndex);
                         isProcessed = true;
@@ -57,7 +69,7 @@ class FileProcessor {
     checkUncommentedScope(arr, startIndex, endIndex) {
         for (var k = startIndex; k <= endIndex; k++) {
             var trimText = arr[k].trim();
-            if (!trimText.startsWith('//')) {
+            if (!trimText.startsWith("//")) {
                 return true;
             }
         }
@@ -67,7 +79,7 @@ class FileProcessor {
     checkCommentedScope(arr, startIndex, endIndex) {
         for (var k = startIndex; k <= endIndex; k++) {
             var trimText = arr[k].trim();
-            if (!trimText.startsWith('//')) {
+            if (!trimText.startsWith("//")) {
                 return false;
             }
         }
@@ -88,7 +100,7 @@ class FileProcessor {
     }
 
     splitFileText(fileText) {
-        return fileText.split('\n');
+        return fileText.split("\n");
     }
 }
 module.exports = FileProcessor;

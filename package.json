@@ -1,6 +1,6 @@
 {
   "name": "file-directives",
-  "version": "1.4.4",
+  "version": "1.4.6",
   "description": "Utility to specify pre-package directives to allow automatic code stripping",
   "dependencies": {
     "istextorbinary": "^2.1.0",
@@ -9,7 +9,15 @@
   "bin": {
     "file-directives": "bin/process.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/naqvitalha/file-directives"
+  },
+  "author": "naqvitalha <naqvitalha@gmail.com>",
+  "bugs": {
+    "url": "https://github.com/naqvitalha/file-directives/issues"
+  },
+  "homepage": "https://github.com/naqvitalha/file-directives",
   "devDependencies": {},
-  "author": "",
   "license": "ISC"
 }
