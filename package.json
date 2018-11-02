@@ -1,6 +1,6 @@
 {
   "name": "file-directives",
-  "version": "1.4.6",
+  "version": "1.4.7",
   "description": "Utility to specify pre-package directives to allow automatic code stripping",
   "dependencies": {
     "istextorbinary": "^2.1.0",
