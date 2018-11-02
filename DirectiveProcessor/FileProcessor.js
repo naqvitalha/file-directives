@@ -88,14 +88,14 @@ class FileProcessor {
 
     commentAll(arr, startIndex, endIndex) {
         for (var k = startIndex; k <= endIndex; k++) {
-            arr[k] = "//" + arr[k];
+            arr[k] = "// " + arr[k];
         }
     }
 
     uncommentAll(arr, startIndex, endIndex) {
         for (var k = startIndex; k <= endIndex; k++) {
             var trimText = arr[k].trim();
-            arr[k] = trimText.substring(2, trimText.length);
+            arr[k] = trimText.substring(2, trimText.length).trim();
         }
     }
 
