@@ -5,10 +5,10 @@ class DirectiveHelper {
         var fileLength = fileSegments.length;
         for (var i = dirIndex + 1; i < fileLength; i++) {
             var segment = fileSegments[i].trim();
-            if (segment.startsWith("//#if")) {
+            if (segment.startsWith("//#if") || segment.startsWith("// #if")) {
                 count++;
             }
-            else if (segment.startsWith("//#endif")) {
+            else if (segment.startsWith("//#endif") || segment.startsWith("// #endif")) {
                 count--;
             }
             if (count === 0) {
@@ -23,14 +23,18 @@ class DirectiveHelper {
         }
     }
     checkIfLineIsDirective(textLine) {
-        return textLine.trim().startsWith("//#if");
+        return textLine.trim().startsWith("//#if") || textLine.trim().startsWith("// #if");
     }
     checkIfStartEndDirective(textLine)
     {
-         return textLine.trim().startsWith("//#if") || textLine.trim().startsWith("//#endif");
+         return textLine.trim().startsWith("//#if") 
+         || textLine.trim().startsWith("// #if")
+         || textLine.trim().startsWith("//#endif")
+         || textLine.trim().startsWith("// #endif");
     }
     checkDirective(directive, envVars) {
         directive = directive.trim().replace("//#if", "");
+        directive = directive.trim().replace("// #if", "");
         var m;
         var regEx = /\[(.*?)\]/g;
         while (m = regEx.exec(directive)) {
